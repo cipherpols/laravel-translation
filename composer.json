@@ -1,0 +1,23 @@
+{
+    "name": "cipherpols/laravel-translation",
+    "description": "In-database Translator for Laravel ",
+    "keywords": ["laravel", "translations", "translator"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tuan Duong",
+            "email": "duongthaso@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.x|5.1.x|5.2.x|5.3.x|5.4.x",
+        "illuminate/translation": "5.0.x|5.1.x|5.2.x|5.3.x|5.4.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "CipherPols\\TranslationManager\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
