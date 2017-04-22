@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "CipherPols\\TranslationManager\\": "src/"
+            "CipherPols\\Translation\\": "src/"
         }
     },
     "minimum-stability": "stable"
