@@ -8,6 +8,7 @@
  */
 
 namespace CipherPols\Translation;
+use Mockery\Exception;
 
 /**
  * Class Translator
@@ -19,16 +20,33 @@ class Translator extends \Illuminate\Translation\Translator
     {
         $string = parent::get($key, $replace, $locale, $fallback);
         if ($string == $key) {
-            $this->notifyMissingKey($key);
+            list($namespace, $group, $item) = $this->parseKey($key);
+            $this->notifyMissingKey($item, $group, $locale);
         }
         return $string;
     }
 
     /**
-     * Notify if the key is missing
      * @param $key
+     * @param $group
+     * @param $locale
      */
-    protected function notifyMissingKey($key)
+    protected function notifyMissingKey($key, $group, $locale)
     {
+        $locale = $locale ? $locale : $this->locale;
+        // Insert if
+        \DB::table('translations')->updateOrInsert(
+            [
+                'locale' => $locale,
+                'group' => $group,
+                'key'   => $key,
+            ],
+            [
+                'locale' => $locale,
+                'group' => $group,
+                'key'   => $key,
+                'value' => null,
+            ]
+        );
     }
 }
