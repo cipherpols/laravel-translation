@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Translation extends Model
 {
+    const LOCALE_ENGLISH = 'en';
+    const LOCALE_ARABIC = 'ar';
+
     /**
      * @var string
      */

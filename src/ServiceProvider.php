@@ -19,6 +19,16 @@ class ServiceProvider extends TranslationServiceProvider
 {
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
+        $migrationPath = __DIR__.'/../database/migrations';
+        $this->publishes([
+            $migrationPath => base_path('database/migrations'),
+        ], 'migrations');
+
+        $this->app->singleton('translator', function($app) {
+            $locale = $app['config']['app.locale'];
+            $loader = new DatabaseLoader();
+            $translator = new Translator($loader, $locale);
+            return $translator;
+        });
     }
 }
