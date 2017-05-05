@@ -28,6 +28,7 @@ class ServiceProvider extends TranslationServiceProvider
             $locale = $app['config']['app.locale'];
             $loader = new DatabaseLoader();
             $translator = new Translator($loader, $locale);
+            $translator->setFallback($app['config']['app.fallback_locale']);
             return $translator;
         });
     }
