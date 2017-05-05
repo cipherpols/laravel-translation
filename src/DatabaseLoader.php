@@ -27,10 +27,14 @@ class DatabaseLoader implements LoaderInterface
      */
     public function load($locale, $group, $namespace = null)
     {
+        if ($namespace === null) {
+            $namespace = '*';
+        }
         /** @var Builder $query */
         $query = \DB::table('translations')
             ->where('locale', $locale)
-            ->where('group', $group);
+            ->where('group', $group)
+            ->where('namespace', $namespace);
 
         return $query->pluck('value', 'key')->toArray();
 

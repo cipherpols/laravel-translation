@@ -17,6 +17,7 @@ class CreateTranslationsTable extends Migration
             $table->increments('id');
             $table->string('locale');
             $table->string('group');
+            $table->string('namespace')->default('*');
             $table->string('key');
             $table->string('value')->nullable();
         });

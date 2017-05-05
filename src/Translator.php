@@ -16,22 +16,29 @@ use Mockery\Exception;
  */
 class Translator extends \Illuminate\Translation\Translator
 {
+    /**
+     * @inheritdoc
+     */
     public function get($key, array $replace = [], $locale = null, $fallback = true)
     {
         $string = parent::get($key, $replace, $locale, $fallback);
         if ($string == $key) {
             list($namespace, $group, $item) = $this->parseKey($key);
-            $this->notifyMissingKey($item, $group, $locale);
+            $this->notifyMissingKey($item, $namespace, $group, $locale);
         }
+        
         return $string;
     }
 
     /**
-     * @param $key
-     * @param $group
-     * @param $locale
+     * Check and insert new translation if it doesn't exist
+     * 
+     * @param string $key
+     * @param string $namespace
+     * @param string $group
+     * @param string $locale
      */
-    protected function notifyMissingKey($key, $group, $locale)
+    protected function notifyMissingKey($key, $namespace, $group, $locale)
     {
         $locale = $locale ? $locale : $this->locale;
         // Insert if
@@ -39,11 +46,13 @@ class Translator extends \Illuminate\Translation\Translator
             [
                 'locale' => $locale,
                 'group' => $group,
+                'namespace' => $namespace,
                 'key'   => $key,
             ],
             [
                 'locale' => $locale,
                 'group' => $group,
+                'namespace' => $namespace,
                 'key'   => $key,
                 'value' => null,
             ]

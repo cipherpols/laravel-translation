@@ -2,8 +2,8 @@
 /**
  * File Translation.php
  *
- * @author Tuan Duong <duongthaso@gmail.com>
- * @package Cze
+ * @author Tuan Duong <bacduong@gmail.com>
+ * @package Laravel-Translation
  * @version 1.0
  */
 
@@ -24,6 +24,7 @@ class Translation extends Model
      * @var string
      */
     protected $table = 'translations';
+    protected $timestamps = false;
 
     /**
      * @var array
@@ -31,7 +32,22 @@ class Translation extends Model
     protected $fillable = [
         'locale',
         'group',
+        'namespace',
         'key',
         'text',
     ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'locale' => 'string',
+        'group' => 'string',
+        'namespace' => 'string',
+        'key' => 'string',
+        'value' => 'string'
+    ];    
 }
