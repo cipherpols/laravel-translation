@@ -21,10 +21,14 @@ class Translation extends Model
     const LOCALE_ARABIC = 'ar';
 
     /**
+     * @var boolean
+     */
+    public $timestamps = false;
+
+    /**
      * @var string
      */
     protected $table = 'translations';
-    protected $timestamps = false;
 
     /**
      * @var array
